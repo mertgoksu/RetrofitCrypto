@@ -8,8 +8,7 @@ import retrofit2.http.Query
 
 interface CryptoAPI {
     //GET, POST, UPDATE, DELETE
-//    @GET("atilsamancioglu/K21-JSONDataSet/master/crypto.json")
-    @GET("bf08f366-afb5-4680-84b0-9d23eb263069")
+    @GET("coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1")
     fun getData() : Observable<List<CryptoModel>>
 
 //    fun getData() : Call<List<CryptoModel>>

@@ -4,9 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 data class CryptoModel(
     //@SerializedName("currency")
-    val currency: String,
+    val name: String,
     //@SerializedName("price")
-    val price: String
+    val current_price: String,
+    //@SerializedName("")
+    val symbol: String
+
 
 
     )

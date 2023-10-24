@@ -1,8 +1,11 @@
 package com.mertg.retrofitcrypto.view
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,8 +28,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity(), RecyclerViewAdapter.Listener {
     private lateinit var binding : ActivityMainBinding
-    //    private val BASE_URL = "https://raw.githubusercontent.com/"
-    private val BASE_URL = "https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
+//    private val BASE_URL = "https://raw.githubusercontent.com/"
+    private val BASE_URL = "https://api.coingecko.com/api/v3/"
     private var cryptoModels : ArrayList<CryptoModel>? = null
 
     private var recyclerViewAdapter : RecyclerViewAdapter? = null
@@ -97,28 +100,46 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.Listener {
         })*/
     }
 
-    private fun handleResponse(cryptoList : List<CryptoModel>){
+    private fun handleResponse(cryptoList: List<CryptoModel>) {
         try {
             cryptoModels = ArrayList(cryptoList)
-
             cryptoModels?.let {
-                recyclerViewAdapter = RecyclerViewAdapter(it,this@MainActivity)
+                // Verileri isim (name) özelliğine göre alfabetik sırala
+                it.sortBy { it.name }
+                recyclerViewAdapter = RecyclerViewAdapter(it, this@MainActivity)
                 binding.recyclerView.adapter = recyclerViewAdapter
             }
         } catch (e: Exception) {
             e.printStackTrace()
             // Hata durumunda burada uygun işlemleri yapabilirsiniz.
         }
-
     }
 
 
+
     override fun onItemClick(cryptoModel: CryptoModel) {
-        Toast.makeText(this, "Clicked: ${cryptoModel.currency}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Clicked: ${cryptoModel.name}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         compositeDisposable?.clear()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.refresh_button -> {
+                loadData()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+
 }
