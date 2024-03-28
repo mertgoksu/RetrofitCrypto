@@ -15,7 +15,9 @@ A basic Kotlin app to practice retrieving data from the Internet with Retrofit/R
 ### Here are some photos and videos of the app ;
 <br>
 
+### Main Page
 <img width="322" alt="1" src="https://github.com/mertgoksu/RetrofitCrypto/assets/119433132/5d0649f3-1c87-4e3a-8a11-b93ca364a173">
 
+### Refresh
 [retrofitwebm.webm](https://github.com/mertgoksu/RetrofitCrypto/assets/119433132/e05ec271-39eb-48a6-90f3-32f445ade748)
 
